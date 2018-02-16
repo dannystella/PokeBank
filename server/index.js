@@ -14,7 +14,11 @@ app.use(bodyParser.json());
 
 
 app.get('/poke', function(req, res){
-  res.end()
+  pokeMethods.pokeMethods.grabAll()
+  .then(function(pokemon){
+        console.log('got pokes')
+    res.status(200).send(pokemon);
+  })
 })
 
 

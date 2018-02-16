@@ -7,7 +7,7 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      pokemon: [{description: 'hi'}, {description: 'bye'}, {description: 'hola'}]
+      pokemon: []
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
@@ -19,10 +19,13 @@ export default class App extends Component {
     axios.post('/poke', {
       pokemon: poke
     })
-    .then((data) =>{
-      // this.setState({
-      //   tasks: data.data
-      // })
+    .then(() => {
+      return axios.get('/poke');
+    })
+    .then((data) => {
+     this.setState({
+       pokemon: data.data
+     })
     })
   }
 
@@ -37,7 +40,7 @@ export default class App extends Component {
   }
   handleRemove(e){
     var remainder = this.state.pokemon.filter((poke) => {
-      if(poke.description !== e.description) return poke;
+      if(poke.name !== e.name) return poke;
     })
     this.setState({
       pokemon: remainder

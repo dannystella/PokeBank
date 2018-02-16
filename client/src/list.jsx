@@ -4,7 +4,7 @@ const List = ({items, handleRemove}) => {
     return (
         <ul>
         {items.map((item, i) =>
-        <li key={i} onClick ={() => {handleRemove(item)}}>{item.description}</li>
+        <li key={i} onClick ={() => {handleRemove(item)}}>{item.name}</li>
         )}
         </ul>
     )
