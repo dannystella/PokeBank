@@ -4,7 +4,7 @@ const List = ({items, handleRemove}) => {
     return (
         <ul>
         {items.map((item, i) =>
-        <li key={i} onClick ={() => {handleRemove(item)}}>{item.name}</li>
+        <li key={i} onClick ={() => {handleRemove(item)}}>{item.name}<img src = {item.sprite}/></li>
         )}
         </ul>
     )
