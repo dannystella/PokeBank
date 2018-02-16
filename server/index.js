@@ -23,9 +23,12 @@ app.get('/poke', function(req, res){
 
 //POST ROUTE
 app.post('/poke', function(req, res){
-  var input = (parseInt(req.body.pokemon.userInput));
-  grabPokemon.grabPokemon(input, function(err, data){
-    console.log(data);
+  var input = req.body.pokemon.userInput;
+  grabPokemon.grabPokemon(input, function(data){
+    data.types.forEach(function(type){
+      console.log(type.type.name);
+    })
+    pokeMethods.pokeMethods.save(data);
   });
   res.end()
 })

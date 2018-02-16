@@ -1,13 +1,17 @@
 const axios = require("axios");
+var Pokedex = require('pokedex-promise-v2');
+var P = new Pokedex();
+
 
 
 let grabPokemon = (name, callback) => {
-  name = 1;
-  var url = "http://pokeapi.co/api/v2/pokemon/" + name;
-  axios.get(url).then(data => {
-    //   console.log(data.data.name);
-      callback(data.data.name);
-  });
+  P.getPokemonByName(name, function(response, error) { // with callback
+      if(!error) {
+        callback(response);
+      } else {
+        console.log(error)
+      }
+    });
 
 }
 

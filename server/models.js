@@ -4,10 +4,10 @@ var db = mongoose.connection;
 
 
 let pokeSchema = mongoose.Schema({
-    id: Number,
+    id: {type: Number, unique: true},
     url: String,
-    name: String, 
-    type: String
+    name: String,
+    types: [] 
 })
 
 let Poke= mongoose.model('Poke', pokeSchema);
@@ -15,11 +15,36 @@ let Poke= mongoose.model('Poke', pokeSchema);
 let pokeMethods = {};
 
 pokeMethods.save = (pokemon) => {
+    var types = pokemon.types.map(type => {
+        return type.type.name;
+    })
+    pokemon.types = types;
+    
     return Poke.create(pokemon);
 }
 
 pokeMethods.grabAll = () => {
     return Poke.find({}).exec();
 }
+
+
+// "types": [
+//         {
+//             "slot": 2,
+//             "type": {
+//                 "url": "https://pokeapi.co/api/v2/type/4/",
+//                 "name": "poison"
+//             }
+//         },
+//         {
+//             "slot": 1,
+//             "type": {
+//                 "url": "https://pokeapi.co/api/v2/type/12/",
+//                 "name": "grass"
+//             }
+//         }
+
+
+
 
 module.exports.pokeMethods = pokeMethods;
