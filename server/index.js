@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const taskMethods = require('./models');
-
+const pokeMethods = require('./models');
+const grabPokemon = require('./helpers')
 
 
 let app = express();
@@ -13,8 +13,7 @@ app.use(bodyParser.json());
 //GET ROUTE
 
 
-app.get('/tasks', function(req, res){
-  console.log("hi");
+app.get('/poke', function(req, res){
   res.end()
 })
 
@@ -23,8 +22,11 @@ app.get('/tasks', function(req, res){
 
 
 //POST ROUTE
-app.post('/tasks', function(req, res){
-  console.log(req.body);
+app.post('/poke', function(req, res){
+  var input = (parseInt(req.body.pokemon.userInput));
+  grabPokemon.grabPokemon(input, function(err, data){
+    console.log(data);
+  });
   res.end()
 })
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
 const List = ({items, handleRemove}) => {
+    console.log(items)
     return (
         <ul>
         {items.map((item, i) =>

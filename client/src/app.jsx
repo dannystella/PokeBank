@@ -7,17 +7,17 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      tasks: [{description: 'hi'}, {description: 'bye'}, {description: 'hola'}]
+      pokemon: [{description: 'hi'}, {description: 'bye'}, {description: 'hola'}]
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
     this.handleSort = this.handleSort.bind(this);
-    this.syncTasks = this.syncTasks.bind(this);
+    this.syncPoke = this.syncPoke.bind(this);
   }
 
-  syncTasks(task){
-    axios.post('/tasks', {
-      tasks: task
+  syncPoke(poke){
+    axios.post('/poke', {
+      pokemon: poke
     })
     .then((data) =>{
       // this.setState({
@@ -29,28 +29,28 @@ export default class App extends Component {
 
   handleAdd(e){
     if(e !== ''){
-      this.state.tasks.push({description: e});
+      this.state.pokemon.push({description: e});
       this.setState({
-        tasks: this.state.tasks
+        pokemon: this.state.pokemon
       })
     }
   }
   handleRemove(e){
-    var remainder = this.state.tasks.filter((todo) => {
-      if(todo.description !== e.description) return todo;
+    var remainder = this.state.pokemon.filter((poke) => {
+      if(poke.description !== e.description) return poke;
     })
     this.setState({
-      tasks: remainder
+      pokemon: remainder
     })
   }
   handleSort(e){
-    var arr = this.state.tasks;
+    var arr = this.state.pokemon;
 
     var narr = arr.sort((a,b) => {
       return a.description.toLowerCase() > b.description.toLowerCase();
     })
     this.setState({
-      tasks: narr
+      pokemon: narr
     })
   }
   
@@ -60,9 +60,9 @@ export default class App extends Component {
       <Form
        handleAdd = {this.handleAdd}
        handleSort = {this.handleSort}
-       syncTasks = {this.syncTasks}
+       syncPoke = {this.syncPoke}
        />
-      <List items = {this.state.tasks}
+      <List items = {this.state.pokemon}
        handleRemove = {this.handleRemove}
       />
       </div>

@@ -1,23 +1,25 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/tasks')
+mongoose.connect('mongodb://localhost/poke')
 var db = mongoose.connection;
 
 
-let taskSchema = mongoose.Schema({
+let pokeSchema = mongoose.Schema({
     id: Number,
-    description: String 
+    url: String,
+    name: String, 
+    type: String
 })
 
-let Task = mongoose.model('Task', taskSchema);
+let Poke= mongoose.model('Poke', pokeSchema);
 
-let taskMethods = {};
+let pokeMethods = {};
 
-taskMethods.save = (tasks) => {
-    return Task.create(tasks);
+pokeMethods.save = (pokemon) => {
+    return Poke.create(pokemon);
 }
 
-taskMethods.grabAll = () => {
-    return Task.find({}).exec();
+pokeMethods.grabAll = () => {
+    return Poke.find({}).exec();
 }
 
-module.exports.taskMethods = taskMethods;
+module.exports.pokeMethods = pokeMethods;

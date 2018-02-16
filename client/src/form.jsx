@@ -16,13 +16,13 @@ class Form extends React.Component {
                 />
                 <button onClick={() => {
                     this.props.handleAdd(this.state.userInput)
-                    this.props.syncTasks({userInput: this.state.userInput})
+                    this.props.syncPoke({userInput: this.state.userInput})
                     this.setState({userInput : ''})}
-                    }>Add Todo</button>   
+                    }>Catch</button>   
                 <button onClick={() => {
                     this.props.handleSort(this.state.userInput)
                     this.setState({userInput : ''})}
-                    }>Sort Todo</button>                
+                    }>Sort</button>                
             </div>
         )
     }
