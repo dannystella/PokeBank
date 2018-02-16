@@ -1,16 +1,36 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var request = require('request')
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const taskMethods = require('./models');
+
+
+
+let app = express();
+
 
 app.use(express.static(__dirname + '/../client/dist'));
-// app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-// Due to express, when you load the page, it doesnt make a get request to '/', it simply serves up the dist folder
-app.post('/', function(req, res) {
-  
+//GET ROUTE
+
+
+app.get('/tasks', function(req, res){
+  console.log("hi");
+  res.end()
 })
 
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
+
+
+
+
+//POST ROUTE
+app.post('/tasks', function(req, res){
+  console.log(req.body);
+  res.end()
+})
+
+
+let port = process.env.PORT || 8080;
+
+app.listen(port, function() {
+  console.log(`listening on port ${port}`);
 });
