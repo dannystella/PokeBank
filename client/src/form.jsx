@@ -1,4 +1,5 @@
 import React from 'react'
+import Search from './search.jsx'
 
 class Form extends React.Component {
     constructor(props) {
@@ -8,6 +9,7 @@ class Form extends React.Component {
         }
     }
     render(){
+        
         return (
             <div  className = "nav-bar" >
                 <div>Catch a Pokemon</div>
@@ -23,8 +25,10 @@ class Form extends React.Component {
                 <button onClick={() => {
                     this.props.handleSort(this.state.userInput)
                     this.setState({userInput : ''})}
-                    }>Sort</button>      
-                <input type= "text" className = "pull" placeholder = "search by type"/>          
+                    }>Sort</button>        
+                    <Search filterByType = {this.props.filterByType}
+                    syncPoke = {this.props.syncPoke}
+                    />        
             </div>
         )
     }

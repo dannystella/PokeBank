@@ -13,6 +13,7 @@ export default class App extends Component {
     this.handleRemove = this.handleRemove.bind(this);
     this.handleSort = this.handleSort.bind(this);
     this.syncPoke = this.syncPoke.bind(this);
+    this.filterByType = this.filterByType.bind(this);
   }
 
   syncPoke(poke){
@@ -22,9 +23,9 @@ export default class App extends Component {
     .then(() => {
       return axios.get('/poke');
     })
-    .then((data) => {
+    .then((res) => {
      this.setState({
-       pokemon: data.data
+       pokemon: res.data
      })
     })
   }
@@ -38,6 +39,7 @@ export default class App extends Component {
       })
     }
   }
+
   handleRemove(e){
     var remainder = this.state.pokemon.filter((poke) => {
       if(poke.name !== e.name) return poke;
@@ -46,6 +48,7 @@ export default class App extends Component {
       pokemon: remainder
     })
   }
+
   handleSort(e){
     var arr = this.state.pokemon;
 
@@ -56,14 +59,27 @@ export default class App extends Component {
       pokemon: narr
     })
   }
+
+  filterByType(type){
+    // var type = e.target.value;
+    var currentPokes = this.state.pokemon;
+    var filterPokes = currentPokes.filter(poke => {
+      return poke.types.includes(type);
+    })
+    this.setState({
+      pokemon: filterPokes  
+    })
+  }
   
   render() {
+    console.log('this is the state', this.state)
     return (
       <div className = "App" className = "container">
       <Form
        handleAdd = {this.handleAdd}
        handleSort = {this.handleSort}
        syncPoke = {this.syncPoke}
+       filterByType = {this.filterByType}
        />
       <List items = {this.state.pokemon}
        handleRemove = {this.handleRemove}
