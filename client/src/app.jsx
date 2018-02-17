@@ -7,13 +7,17 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      pokemon: []
+      pokemon: [],
+      pokeBank: [],
+      loading: true
     }
     this.handleAdd = this.handleAdd.bind(this);
     this.handleRemove = this.handleRemove.bind(this);
     this.handleSort = this.handleSort.bind(this);
     this.syncPoke = this.syncPoke.bind(this);
     this.filterByType = this.filterByType.bind(this);
+    this.collapse = this.collapse.bind(this);
+    this.syncDep = this.syncDep.bind(this);
   }
 
   syncPoke(poke){
@@ -25,19 +29,31 @@ export default class App extends Component {
     })
     .then((res) => {
      this.setState({
-       pokemon: res.data
+       pokemon: res.data,
+       pokeBank: res.data
      })
     })
   }
 
+  syncDep(poke){
+    axios.post('/poke', {
+      pokemon: poke
+    })
+  }
+
+  collapse(){
+    this.setState({
+      pokemon: []
+    });
+  }
 
   handleAdd(e){
-    if(e !== ''){
       this.state.pokemon.push({description: e});
+      this.state.pokeBank.push({description: e});
       this.setState({
-        pokemon: this.state.pokemon
+        pokemon: this.state.pokemon,
+        pokeBank: this.state.pokeBank,
       })
-    }
   }
 
   handleRemove(e){
@@ -51,7 +67,6 @@ export default class App extends Component {
 
   handleSort(e){
     var arr = this.state.pokemon;
-
     var narr = arr.sort((a,b) => {
       return a.name.toLowerCase() > b.name.toLowerCase();
     })
@@ -60,38 +75,39 @@ export default class App extends Component {
     })
   }
 
-  filterByType (type){
+  filterByType (type) {
+    if(type === ''){
+      this.syncPoke('')
+    }
+    var bank = this.state.pokeBank;
     var currentPokes = this.state.pokemon;
-
+    if(currentPokes.length < bank.length){
+      currentPokes = bank;
+    }
     var filterPokes = currentPokes.filter(poke => {
      var flag = false;
      var temp =  poke.types.forEach(typeOf => {
-      console.log(typeOf)
-      console.log(type)
-      console.log(typeOf.includes(type))
       if(typeOf.includes(type)){
         flag = true;
       }
         })
         return flag;
     })
-    
-    if(filterPokes.length > 0){
       this.setState({
         pokemon: filterPokes  
       })
-    }
   }
   
   render() {
-    // console.log('this is the state', this.state)
     return (
       <div className = "App" className = "container">
       <Form
+       collapse = {this.collapse}
        handleAdd = {this.handleAdd}
        handleSort = {this.handleSort}
        syncPoke = {this.syncPoke}
        filterByType = {this.filterByType}
+       syncDep = {this.syncDep}
        />
       <List items = {this.state.pokemon}
        handleRemove = {this.handleRemove}
