@@ -9,7 +9,8 @@ class Form extends React.Component {
     }
     render(){
         return (
-            <div>
+            <div  className = "nav-bar" >
+                <div>Catch a Pokemon</div>
               <input type= "text"
                 value={this.state.userInput}
                 onChange={(e) => this.setState({userInput: e.target.value})}
@@ -22,7 +23,8 @@ class Form extends React.Component {
                 <button onClick={() => {
                     this.props.handleSort(this.state.userInput)
                     this.setState({userInput : ''})}
-                    }>Sort</button>                
+                    }>Sort</button>      
+                <input type= "text" className = "pull" placeholder = "search by type"/>          
             </div>
         )
     }

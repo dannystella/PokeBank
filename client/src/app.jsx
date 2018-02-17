@@ -50,7 +50,7 @@ export default class App extends Component {
     var arr = this.state.pokemon;
 
     var narr = arr.sort((a,b) => {
-      return a.description.toLowerCase() > b.description.toLowerCase();
+      return a.name.toLowerCase() > b.name.toLowerCase();
     })
     this.setState({
       pokemon: narr
@@ -59,7 +59,7 @@ export default class App extends Component {
   
   render() {
     return (
-      <div>Todo:
+      <div className = "App" className = "container">
       <Form
        handleAdd = {this.handleAdd}
        handleSort = {this.handleSort}

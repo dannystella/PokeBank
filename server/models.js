@@ -29,23 +29,5 @@ pokeMethods.grabAll = () => {
 }
 
 
-// "types": [
-//         {
-//             "slot": 2,
-//             "type": {
-//                 "url": "https://pokeapi.co/api/v2/type/4/",
-//                 "name": "poison"
-//             }
-//         },
-//         {
-//             "slot": 1,
-//             "type": {
-//                 "url": "https://pokeapi.co/api/v2/type/12/",
-//                 "name": "grass"
-//             }
-//         }
-
-
-
 
 module.exports.pokeMethods = pokeMethods;
