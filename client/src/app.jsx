@@ -60,19 +60,31 @@ export default class App extends Component {
     })
   }
 
-  filterByType(type){
-    // var type = e.target.value;
+  filterByType (type){
     var currentPokes = this.state.pokemon;
+
     var filterPokes = currentPokes.filter(poke => {
-      return poke.types.includes(type);
+     var flag = false;
+     var temp =  poke.types.forEach(typeOf => {
+      console.log(typeOf)
+      console.log(type)
+      console.log(typeOf.includes(type))
+      if(typeOf.includes(type)){
+        flag = true;
+      }
+        })
+        return flag;
     })
-    this.setState({
-      pokemon: filterPokes  
-    })
+    
+    if(filterPokes.length > 0){
+      this.setState({
+        pokemon: filterPokes  
+      })
+    }
   }
   
   render() {
-    console.log('this is the state', this.state)
+    // console.log('this is the state', this.state)
     return (
       <div className = "App" className = "container">
       <Form
